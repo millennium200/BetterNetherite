@@ -9,8 +9,10 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         Bukkit.getLogger().info("BetterNetherite Plugin has started!");
 
-        this.getServer().getPluginManager().registerEvents(new ExplosionListener(), this);
-        this.getServer().getPluginManager().registerEvents(new FireDamageListener(), this);
+        this.saveDefaultConfig();
+
+        this.getServer().getPluginManager().registerEvents(new ExplosionListener(this), this);
+        this.getServer().getPluginManager().registerEvents(new FireDamageListener(this), this);
         this.getServer().getPluginManager().registerEvents(new CactusDamageListener(), this);
     }
 

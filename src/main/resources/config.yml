@@ -1,0 +1,16 @@
+############################################################
+# +------------------------------------------------------+ #
+# |            BetterNetherite Config File               | #
+# +------------------------------------------------------+ #
+############################################################
+
+# Configuration file for BetterNetherite
+# Plugin developed by millenium200
+
+# Set this to a value less than 1 to make it so netherite armor provides
+# a boost in fire damage protection. Note, a full armor set must be worn.
+fireDamageMultiplier: 0.75
+
+# Set this to a value less than 1 to make it so netherite armor provides
+# a boost in explosion protection. Note, a full armor set must be worn.
+explosionDamageMultiplier: 0

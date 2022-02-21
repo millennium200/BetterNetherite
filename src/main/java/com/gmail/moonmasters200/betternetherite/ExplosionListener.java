@@ -7,16 +7,22 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class ExplosionListener implements Listener {
+
+    private final JavaPlugin _plugin;
+
+    public ExplosionListener(JavaPlugin plugin) {
+        _plugin = plugin;
+    }
 
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent entityExplodeEvent) {
         var entity = entityExplodeEvent.getEntity();
 
         if (entityExplodeEvent.getEntityType() == EntityType.DROPPED_ITEM) {
-            if (entity instanceof Item) {
-                var item = (Item) entity;
+            if (entity instanceof Item item) {
                 var material = item.getItemStack().getType();
 
                 if (NetheriteMaterialChecker.isMaterialNetherite(material)) {
@@ -26,11 +32,13 @@ public class ExplosionListener implements Listener {
         }
 
         if (entityExplodeEvent.getEntityType() == EntityType.PLAYER) {
-            if (entity instanceof Player) {
-                var player = (Player) entity;
+            if (entity instanceof Player player) {
 
                 if (NetheriteArmorChecker.isPlayerWearingAllNetherite(player)) {
-                    entityExplodeEvent.setCancelled(true);
+                    var damageMultiplier = getDamageMultiplier();
+                    if (damageMultiplier == 0) {
+                        entityExplodeEvent.setCancelled(true);
+                    }
                 }
             }
         }
@@ -46,8 +54,7 @@ public class ExplosionListener implements Listener {
         var entity = entityDamageEvent.getEntity();
 
         if (entityDamageEvent.getEntityType() == EntityType.DROPPED_ITEM) {
-            if (entity instanceof Item) {
-                var item = (Item) entity;
+            if (entity instanceof Item item) {
                 var material = item.getItemStack().getType();
 
                 if (NetheriteMaterialChecker.isMaterialNetherite((material))) {
@@ -57,14 +64,25 @@ public class ExplosionListener implements Listener {
         }
 
         if (entityDamageEvent.getEntityType() == EntityType.PLAYER) {
-            if (entity instanceof Player) {
-                var player = (Player) entity;
+            if (entity instanceof Player player) {
 
                 if (NetheriteArmorChecker.isPlayerWearingAllNetherite(player)) {
-                    entityDamageEvent.setCancelled(true);
+                    var originalDamage = entityDamageEvent.getDamage();
+                    var damageMultiplier = getDamageMultiplier();
+                    entityDamageEvent.setDamage(originalDamage * damageMultiplier);
                 }
             }
         }
+    }
+
+    private double getDamageMultiplier() {
+        var config = _plugin.getConfig();
+
+        if (config == null) {
+            return 0;
+        }
+
+        return config.getDouble("explosionDamageMultiplier");
     }
 
 }
