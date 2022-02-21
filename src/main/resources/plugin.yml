@@ -1,0 +1,6 @@
+main: com.gmail.moonmasters200.betternetherite.Main
+name: BetterNetherite
+version: 0.1.0
+description: This improves netherite items and armor.
+api-version: 1.18
+Author: millenium200
