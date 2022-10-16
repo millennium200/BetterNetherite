@@ -6,7 +6,7 @@
 
     <groupId>com.gmail.moonmasters200</groupId>
     <artifactId>betternetherite</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
 
     <repositories>
         <repository>
@@ -18,9 +18,8 @@
     <dependencies>
         <dependency>
             <groupId>io.papermc.paper</groupId>
-            <!--<groupId>com.destroystokyo.paper</groupId>-->
             <artifactId>paper-api</artifactId>
-            <version>1.18.1-R0.1-SNAPSHOT</version>
+            <version>1.19.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
